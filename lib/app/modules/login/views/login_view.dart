@@ -126,8 +126,8 @@ Widget _loginView(LoginController controller, context) {
                         children: [
                           Image.asset(
                             'assets/images/error-icon.png',
-                            height: 3.h,
-                            width: 3.w,
+                            height: 30,
+                            width: 30,
                             color: white,
                           ),
                           Expanded(
@@ -135,7 +135,7 @@ Widget _loginView(LoginController controller, context) {
                               child: Text(
                                 'Terjadi Kesalahan ${controller.value} ',
                                 style: primaryTextStyle.copyWith(
-                                  fontSize: 2.sp,
+                                  fontSize: 12,
                                   color: white,
                                 ),
                               ),
