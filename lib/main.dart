@@ -13,7 +13,6 @@ import 'package:izzat/app/routes/app_routes_delegate.dart';
 import 'package:izzat/app/routes/auto_routes.dart';
 import 'package:izzat/app/shared/auth_prefs.dart';
 import 'package:sizer/sizer.dart';
-import 'dart:html' as html;
 
 import 'app/routes/app_pages.dart';
 
@@ -36,6 +35,7 @@ void main() {
           getPages: AppPages.routes,
           defaultTransition: Transition.fade,
           routerDelegate: AppRouterDelegate(),
+        
         );
       },
     ),

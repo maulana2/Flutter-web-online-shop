@@ -115,36 +115,76 @@ Widget _loginView(LoginController controller, context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Obx(() => controller.code != 0
-                  ? Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: red,
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/error-icon.png',
-                            height: 30,
-                            width: 30,
-                            color: white,
-                          ),
-                          Expanded(
-                            child: Container(
-                              child: Text(
-                                'Terjadi Kesalahan ${controller.value} ',
-                                style: primaryTextStyle.copyWith(
-                                  fontSize: 12,
-                                  color: white,
+              Obx(
+                () => controller.code != 0
+                    ? Container(
+                        margin: EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: red,
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/error-icon.png',
+                              height: 25,
+                              width: 25,
+                              color: white,
+                            ),
+                            Expanded(
+                              child: Container(
+                                child: Text(
+                                  'Terjadi Kesalahan',
+                                  style: primaryTextStyle.copyWith(
+                                    fontSize: 12,
+                                    color: white,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                      )
+                    : SizedBox(),
+              ),
+              Obx(
+                () => controller.isUserPassEmpty.value == false
+                    ? SizedBox()
+                    : Container(
+                        margin: EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: red,
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/error-icon.png',
+                              height: 25,
+                              width: 25,
+                              color: white,
+                            ),
+                            Expanded(
+                              child: Container(
+                                child: Text(
+                                  'Username dan password tidak boleh kosong',
+                                  style: primaryTextStyle.copyWith(
+                                    fontSize: 12,
+                                    color: white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  : SizedBox()),
+              ),
               CustomWidgets.textField(
                   textController: controller.usernameC,
                   title: 'Nomor telepon atau email',
@@ -171,17 +211,31 @@ Widget _loginView(LoginController controller, context) {
         ),
         Column(
           children: [
-            CustomWidgets.button(
-              buttonColor: blue,
-              title: 'Login',
+            Obx(
+              () => controller.isLoading.value == false
+                  ? CustomWidgets.button(
+                      buttonColor: blue,
+                      title: 'Login',
               textColor: white,
               onTap: () async {
                 controller.login(context);
-                // Get.rootDelegate.offAndToNamed(Routes.HOME);
-              },
-              width: 180,
-              borderRadius: 8,
-            ),
+                        // Get.rootDelegate.offAndToNamed(Routes.HOME);
+                      },
+                      width: 180,
+                      borderRadius: 8,
+                    )
+                  : CustomWidgets.button(
+                      buttonColor: greyButton,
+                      title: 'Loading',
+                      textColor: white,
+                      onTap: () async {
+                       
+                        // Get.rootDelegate.offAndToNamed(Routes.HOME);
+                      },
+                      width: 180,
+                      borderRadius: 8,
+                    ),
+            )
           ],
         ),
       ],

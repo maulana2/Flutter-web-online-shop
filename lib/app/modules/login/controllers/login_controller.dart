@@ -14,29 +14,51 @@ class LoginController extends GetxController {
   TextEditingController usernameC = TextEditingController();
   TextEditingController passC = TextEditingController();
   RxInt? code = 0.obs;
-  late Rx value;
+  var isUserPassEmpty = false.obs;
+  RxBool isLoading = false.obs;
+
+  late var value;
   //TODO: Implement LoginController
 
   Future login(context) async {
-    ApiReturnValue result = await LoginService().requestLogin(
-      username: usernameC.text,
-      password: passC.text,
-    );
-    var stCode = result.code;
-    // print('controller :${result.value}');
-    print('controller : $stCode');
-    switch (stCode) {
-      case 200:
-        AuthPrefs.setToken(result.value);
-        Get.rootDelegate.toNamed(Routes.HOME);
-        break;
-      default:
-        code!.value = stCode!;
-        value = result.value;
+    print(isUserPassEmpty);
+    if (usernameC.text.isNotEmpty && passC.text.isNotEmpty) {
+      isLoading.value = true;
+      isUserPassEmpty.value = false;
+      ApiReturnValue result = await LoginService().requestLogin(
+        username: usernameC.text,
+        password: passC.text,
+      );
+      var stCode = result.code;
+      // print('controller :${result.value}');
+      print('controller : $stCode');
+      switch (stCode) {
+        case 200:
+          AuthPrefs.setToken(result.value);
+          Get.rootDelegate.toNamed(Routes.HOME);
+          isLoading.value = false;
+          value = 'Berhasil Login'.obs;
 
-      // ScaffoldMessenger.of(context)
-      //   ..hideCurrentSnackBar()
-      //   ..showSnackBar(CustomWidgets.snackBar());
+          break;
+        default:
+          print('masuk default');
+          code!.value = stCode!;
+          value = 'Tidak bisa login'.obs;
+          isLoading.value = false;
+          print('masuk default: ${isLoading}');
+
+        // ScaffoldMessenger.of(context)
+        //   ..hideCurrentSnackBar()
+        //   ..showSnackBar(CustomWidgets.snackBar());
+      }
+    } else {
+      print('else run');
+      // kalau username dan password null
+      isLoading.value = false;
+      isUserPassEmpty.value = true;
     }
+
+    print('ini isloading $isLoading');
+    update();
   }
 }
