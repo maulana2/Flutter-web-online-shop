@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:izzat/app/routes/app_pages.dart';
@@ -92,27 +93,131 @@ Widget _createdAccView(DaftarController controller) {
         Expanded(
           child: Column(
             children: [
+              Obx(
+                () => controller.code!.value != 0
+                    ? controller.code!.value == 200
+                        ? Container(
+                            margin: EdgeInsets.only(
+                              bottom: 10,
+                            ),
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: green,
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    child: Text(
+                                      '${controller.value}',
+                                      style: primaryTextStyle.copyWith(
+                                        fontSize: 12,
+                                        color: white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            margin: EdgeInsets.only(
+                              bottom: 10,
+                            ),
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: red,
+                            ),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/error-icon.png',
+                                  height: 25,
+                                  width: 25,
+                                  color: white,
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    child: Text(
+                                      'Terjadi Kesalahan',
+                                      style: primaryTextStyle.copyWith(
+                                        fontSize: 12,
+                                        color: white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                    : SizedBox(),
+              ),
+              Obx(
+                () => controller.isEmailandNameEmpty.value == false
+                    ? SizedBox()
+                    : Container(
+                        margin: EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: red,
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/error-icon.png',
+                              height: 25,
+                              width: 25,
+                              color: white,
+                            ),
+                            Expanded(
+                              child: Container(
+                                child: Text(
+                                  'Email, name, dan jenis kelamin tidak boleh kosong',
+                                  style: primaryTextStyle.copyWith(
+                                    fontSize: 12,
+                                    color: white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+              ),
               CustomWidgets.textField(
-                  title: 'Nomor telepon',
-                  hintText: 'Silahkan masukan nomor telepon anda'),
+                textController: controller.emailC,
+                title: 'Email',
+                hintText: 'Silahkan masukan email anda',
+              ),
               CustomWidgets.textField(
-                  isPassword: true,
-                  title: 'Kata sandi',
-                  hintText: 'Silahkan masukan kata sandi anda'),
+                textController: controller.nameC,
+                title: 'Nama',
+                hintText: 'Silahkan masukan nama anda',
+              ),
+
+              // CustomWidgets.textField(
+              //     isPassword: true,
+              //     title: 'Kata sandi',
+              //     hintText: 'Silahkan masukan kata sandi anda'),
               Container(
                 margin: EdgeInsets.only(top: 25),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: DropdownButtonHideUnderline(
-                    child: DropdownButton2(
+                      child: Obx(
+                    () => DropdownButton2(
                       hint: Text(
-                        'Pilih jenis kelamin',
+                        controller.dropdownvalue.value,
                         style: primaryTextStyle.copyWith(
                           fontSize: 13,
                           color: black,
                         ),
                       ),
-                      value: controller.dropdownvalue?.value,
                       items: controller.items
                           .map(
                             (e) => DropdownMenuItem(
@@ -122,10 +227,10 @@ Widget _createdAccView(DaftarController controller) {
                           )
                           .toList(),
                       onChanged: (value) {
-                        controller.dropdownvalue?.value = value.toString();
+                        controller.dropdownvalue.value = value.toString();
                       },
                     ),
-                  ),
+                  )),
                 ),
               )
             ],
@@ -133,16 +238,21 @@ Widget _createdAccView(DaftarController controller) {
         ),
         Column(
           children: [
-            CustomWidgets.button(
-              buttonColor: blue,
-              title: 'Daftar',
+            Obx(
+              () => CustomWidgets.button(
+                buttonColor: controller.isLoading == true ? greyButton : blue,
+                title: controller.isLoading == true ? 'Loading..' : 'Daftar',
               textColor: white,
               onTap: () {
-                Get.rootDelegate.offAndToNamed(Routes.HOME);
+                  if (controller.isLoading == false) {
+                    controller.daftarRequest();
+                  } else {}
+                  // Get.rootDelegate.offAndToNamed(Routes.HOME);
               },
               width: 180,
               borderRadius: 8,
-            ),
+              ),
+            )
           ],
         ),
       ],

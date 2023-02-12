@@ -119,7 +119,7 @@ class CustomWidgets {
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: blue,
+          backgroundColor: buttonColor,
         ),
         onPressed: onTap,
         child: Text(
