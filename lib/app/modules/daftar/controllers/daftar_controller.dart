@@ -47,9 +47,9 @@ class DaftarController extends GetxController {
           break;
         default:
           print('masuk default');
-          code!.value = stCode!;
-          value = 'Tidak bisa login'.obs;
           isLoading.value = false;
+          code!.value = stCode!;
+          value.value = result.value;
           print('masuk default: ${isLoading}');
 
         // ScaffoldMessenger.of(context)

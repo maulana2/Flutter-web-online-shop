@@ -141,7 +141,7 @@ Widget _createdAccView(DaftarController controller) {
                                 Expanded(
                                   child: Container(
                                     child: Text(
-                                      'Terjadi Kesalahan',
+                                      '${controller.value}',
                                       style: primaryTextStyle.copyWith(
                                         fontSize: 12,
                                         color: white,

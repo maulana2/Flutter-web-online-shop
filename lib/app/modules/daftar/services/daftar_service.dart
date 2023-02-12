@@ -29,7 +29,8 @@ class DaftarService {
             var error = hasil['message'];
             String errorMsg =
                 error.reduce((value, elment) => value + ',' + ' ' + elment);
-            return ApiReturnValue(code: statusCode, message: errorMsg);
+            print('service error msg : $errorMsg');
+            return ApiReturnValue(code: statusCode, value: errorMsg);
           case 200:
             print('masuk 200');
 
