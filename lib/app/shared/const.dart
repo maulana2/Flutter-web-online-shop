@@ -3,6 +3,7 @@ const api = '/api';
 const v1 = '/v1';
 
 const login = '/users/login';
+const carousel = 'home/carousel';
 
 const prefsId = 'id';
 const prefsNamaUser = 'nama';

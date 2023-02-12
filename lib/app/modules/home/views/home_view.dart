@@ -24,7 +24,7 @@ class HomeView extends GetView<HomeController> {
                 child: ListView(
               children: [
                 bannerItem(context),
-                _kategori(),
+                // _kategori(),
                 Container(
                   margin: EdgeInsets.only(top: 25),
                   color: strokeGrey,
@@ -452,11 +452,13 @@ class HomeView extends GetView<HomeController> {
       width: double.infinity,
       height: MediaQuery.of(context).size.height / 1.5,
       child: CarouselSlider(
+
         items: [cardBanner()],
         options: CarouselOptions(
           animateToClosest: true,
           autoPlay: true,
-          aspectRatio: 2.0,
+          aspectRatio: 1.0,
+          
           onPageChanged: (index, reason) {
             // homeProv.currentCarousel = index;
           },
