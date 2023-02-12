@@ -17,7 +17,7 @@ class LoginController extends GetxController {
   var isUserPassEmpty = false.obs;
   RxBool isLoading = false.obs;
 
-  late var value;
+  late Rx value = ''.obs;
   //TODO: Implement LoginController
 
   Future login(context) async {
@@ -43,7 +43,7 @@ class LoginController extends GetxController {
         default:
           print('masuk default');
           code!.value = stCode!;
-          value = 'Tidak bisa login'.obs;
+          value.value = result.value;
           isLoading.value = false;
           print('masuk default: ${isLoading}');
 

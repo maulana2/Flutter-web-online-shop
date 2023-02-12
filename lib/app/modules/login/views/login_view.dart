@@ -137,7 +137,7 @@ Widget _loginView(LoginController controller, context) {
                             Expanded(
                               child: Container(
                                 child: Text(
-                                  'Terjadi Kesalahan',
+                                  '${controller.value}',
                                   style: primaryTextStyle.copyWith(
                                     fontSize: 12,
                                     color: white,
