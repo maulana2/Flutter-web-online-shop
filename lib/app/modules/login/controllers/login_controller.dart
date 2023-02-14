@@ -57,8 +57,6 @@ class LoginController extends GetxController {
       isLoading.value = false;
       isUserPassEmpty.value = true;
     }
-
-    print('ini isloading $isLoading');
     update();
   }
 }

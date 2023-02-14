@@ -4,7 +4,7 @@ const v1 = '/v1';
 
 const login = '/users/login';
 const daftar = '/users';
-const carousel = 'home/carousel';
+const carousel = '/home/carousel';
 
 const prefsId = 'id';
 const prefsNamaUser = 'nama';
