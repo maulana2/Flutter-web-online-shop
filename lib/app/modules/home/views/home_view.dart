@@ -400,21 +400,21 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  MasonryGridView allCatItem() {
-    return MasonryGridView.count(
-      padding: EdgeInsets.all(20),
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
-      crossAxisCount: 6,
-      addAutomaticKeepAlives: false,
-      itemCount: 20,
-      itemBuilder: (context, index) {
-        return ProductItem();
-      },
-    );
-  }
+  // MasonryGridView allCatItem() {
+  //   return MasonryGridView.count(
+  //     padding: EdgeInsets.all(20),
+  //     shrinkWrap: true,
+  //     physics: NeverScrollableScrollPhysics(),
+  //     mainAxisSpacing: 10,
+  //     crossAxisSpacing: 10,
+  //     crossAxisCount: 6,
+  //     addAutomaticKeepAlives: false,
+  //     itemCount: 20,
+  //     itemBuilder: (context, index) {
+  //       return ProductItem();
+  //     },
+  //   );
+  // }
 
   Container popularItemText() {
     return Container(
@@ -450,18 +450,27 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Container popularItem() {
-    return Container(
-      margin: EdgeInsets.only(
-          left: defaultMargin, right: defaultMargin, top: 20, bottom: 20),
-      height: 50.sp,
-      width: double.infinity,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 7,
-        itemBuilder: (context, index) => ProductItem(),
-      ),
-    );
+  Widget popularItem() {
+    if (controller.codePopularProduct!.value == 200) {
+      return Container(
+        margin: EdgeInsets.only(
+            left: defaultMargin, right: defaultMargin, top: 20, bottom: 20),
+        height: 50.sp,
+        width: double.infinity,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: controller.listPopularProduct!.length,
+          itemBuilder: (context, index) =>
+              ProductItem(productCard: controller.listPopularProduct![index]),
+        ),
+      );
+    } else {
+      return Container(
+        child: Center(
+          child: Text('Terjadi kesalahan ${controller.codePopularProduct}'),
+        ),
+      );
+    }
   }
 
   Widget bannerItem(BuildContext context) {
@@ -507,8 +516,7 @@ Widget cardBanner(ResponseCarousel carousel) {
         decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: NetworkImage(
-                  carousel.image.toString()),
+              image: NetworkImage(carousel.image.toString()),
             ),
             borderRadius: BorderRadius.circular(16),
             boxShadow: [

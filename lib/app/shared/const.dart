@@ -5,6 +5,7 @@ const v1 = '/v1';
 const login = '/users/login';
 const daftar = '/users';
 const carousel = '/home/carousel';
+const popularProduct = '/home/popular-product';
 
 const prefsId = 'id';
 const prefsNamaUser = 'nama';

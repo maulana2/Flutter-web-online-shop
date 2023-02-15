@@ -54,7 +54,7 @@ class DetailProductView extends GetView<DetailProductController> {
             ),
           ),
           Divider(),
-          allCatItem(),
+          // allCatItem(),
         ],
       ),
     );
@@ -287,18 +287,18 @@ class DetailProductView extends GetView<DetailProductController> {
   }
 }
 
-MasonryGridView allCatItem() {
-  return MasonryGridView.count(
-    padding: EdgeInsets.all(20),
-    shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
-    mainAxisSpacing: 10,
-    crossAxisSpacing: 10,
-    crossAxisCount: 5,
-    addAutomaticKeepAlives: false,
-    itemCount: 20,
-    itemBuilder: (context, index) {
-      return ProductItem();
-    },
-  );
-}
+// MasonryGridView allCatItem() {
+//   return MasonryGridView.count(
+//     padding: EdgeInsets.all(20),
+//     shrinkWrap: true,
+//     physics: NeverScrollableScrollPhysics(),
+//     mainAxisSpacing: 10,
+//     crossAxisSpacing: 10,
+//     crossAxisCount: 5,
+//     addAutomaticKeepAlives: false,
+//     itemCount: 20,
+//     itemBuilder: (context, index) {
+//       return ProductItem();
+//     },
+//   );
+// }
